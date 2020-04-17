@@ -25,7 +25,7 @@ resource "aws_acm_certificate" "this" {
 }
 
 resource "aws_route53_record" "validation" {
-  for_each = toset(local.distinct_domain_names)
+  for_each = toset(var.create_certificate ? local.distinct_domain_names: [])
 
   zone_id = var.zone_id
   name    = local.validation_domains[each.value]["resource_record_name"]
